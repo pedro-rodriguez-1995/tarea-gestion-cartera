@@ -6,19 +6,19 @@ import java.time.LocalDate;
 public class Movimiento {
 private int idmovimiento;
 private int idusuario;
-private BigDecimal cantidad;
+private BigDecimal importe;
 private int idcategoria;
-private boolean tipomovimiento;
+private String tipo;
 private LocalDate fecha;
 public Movimiento() {
 }
-public Movimiento(int idmovimiento, int idusuario, BigDecimal cantidad, int idcategoria, boolean tipomovimiento,
+public Movimiento(int idmovimiento, int idusuario, BigDecimal importe, int idcategoria, String tipo,
 		LocalDate fecha) {
 	this.idmovimiento = idmovimiento;
 	this.idusuario = idusuario;
-	this.cantidad = cantidad;
+	this.importe = importe;
 	this.idcategoria = idcategoria;
-	this.tipomovimiento = tipomovimiento;
+	this.tipo = tipo;
 	this.fecha = fecha;
 }
 public int getIdmovimiento() {
@@ -33,11 +33,11 @@ public int getIdusuario() {
 public void setIdusuario(int idusuario) {
 	this.idusuario = idusuario;
 }
-public BigDecimal getCantidad() {
-	return cantidad;
+public BigDecimal getImporte() {
+	return importe;
 }
-public void setCantidad(BigDecimal cantidad) {
-	this.cantidad = cantidad;
+public void setImporte(BigDecimal importe) {
+	this.importe = importe;
 }
 public int getIdcategoria() {
 	return idcategoria;
@@ -45,11 +45,11 @@ public int getIdcategoria() {
 public void setIdcategoria(int idcategoria) {
 	this.idcategoria = idcategoria;
 }
-public boolean isTipomovimiento() {
-	return tipomovimiento;
+public String getTipo() {
+	return tipo;
 }
-public void setTipomovimiento(boolean tipomovimiento) {
-	this.tipomovimiento = tipomovimiento;
+public void setTipo(String tipo) {
+	this.tipo = tipo;
 }
 public LocalDate getFecha() {
 	return fecha;
