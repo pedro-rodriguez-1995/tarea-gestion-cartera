@@ -4,11 +4,13 @@ import java.util.List;
 
 import com.sinensia.contract.IAdd;
 import com.sinensia.contract.IGetByUserId;
+import com.sinensia.contract.IGetByUserIdAndCategoryId;
 import com.sinensia.contract.IRemove;
 import com.sinensia.contract.IModify;
 
 import com.sinensia.model.Movimiento;
-public class MovimientoDao extends BaseDao implements IAdd<Movimiento>, IGetByUserId<Movimiento>, IRemove<Movimiento>, IModify<Movimiento>  {
+public class MovimientoDao extends BaseDao implements IAdd<Movimiento>, IGetByUserId<Movimiento>, IRemove<Movimiento>,
+IModify<Movimiento>, IGetByUserIdAndCategoryId<Movimiento> {
 
 	@Override
 	public int modify(Movimiento modelo) throws SQLException {
@@ -32,6 +34,12 @@ public class MovimientoDao extends BaseDao implements IAdd<Movimiento>, IGetByUs
 	public int add(Movimiento modelo) throws SQLException {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Movimiento> getByUserIdAndCategoryId(int userid) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
