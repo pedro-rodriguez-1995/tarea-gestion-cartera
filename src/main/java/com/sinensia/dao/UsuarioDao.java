@@ -1,28 +1,15 @@
 package com.sinensia.dao;
-
 import java.sql.SQLException;
-import java.util.List;
 
+import com.sinensia.contract.IAdd;
+import com.sinensia.contract.IGetById;
 import com.sinensia.model.Usuario;
-
-public class UsuarioDao extends BaseDao implements IDao<Usuario> {
+public class UsuarioDao extends BaseDao implements IAdd<Usuario> , IGetById<Usuario> {
 
 	@Override
-	public int add(Usuario usuario) throws SQLException {
+	public int add(Usuario modelo) throws SQLException {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public int modify(Usuario usuario) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<Usuario> get() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -31,10 +18,7 @@ public class UsuarioDao extends BaseDao implements IDao<Usuario> {
 		return null;
 	}
 
-	@Override
-	public int remove(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
+
 
 }
