@@ -2,6 +2,8 @@ package com.sinensia.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -11,6 +13,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import com.sinensia.contract.IAdd;
+import com.sinensia.contract.IGetAll;
 import com.sinensia.contract.IGetById;
 import com.sinensia.model.Usuario;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -48,6 +51,13 @@ public class UsuarioDaoIntegrationTest {
 		IGetById<Usuario> usuarioDao = new UsuarioDao();
 		Usuario usuario = usuarioDao.getById(idUsuario);
 		assertTrue(usuario !=null);
+	}
+	
+	@Test
+	public void test3GetAll() throws Exception{
+		IGetAll<Usuario> usuarioDao = new UsuarioDao();
+		List<Usuario> usuarios = usuarioDao.getAll();
+		assertTrue(!usuarios.isEmpty());
 	}
 
 }
