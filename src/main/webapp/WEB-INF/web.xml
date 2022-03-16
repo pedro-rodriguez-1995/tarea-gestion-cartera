@@ -4,7 +4,38 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>LoginController</servlet-name>
+  	<display-name>LoginController</display-name>
+  	<description></description>
+  	<servlet-class>com.sinensia.controllers.LoginController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>MainappController</servlet-name>
+  	<display-name>MainappController</display-name>
+  	<description></description>
+  	<servlet-class>com.sinensia.controllers.MainappController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>UsuarioFormController</servlet-name>
+  	<display-name>UsuarioFormController</display-name>
+  	<description></description>
+  	<servlet-class>com.sinensia.controllers.UsuarioFormController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginController</servlet-name>
+  	<url-pattern>/LoginController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>MainappController</servlet-name>
+  	<url-pattern>/MainappController</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+  	<servlet-name>UsuarioFormController</servlet-name>
+  	<url-pattern>/UsuarioFormController</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
-  	<welcome-file>LoginController</welcome-file>
+  	<welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
