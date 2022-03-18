@@ -7,15 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.sinensia.contract.IGetAll;
-
-
 import com.sinensia.model.Categoria;
 
-
-public class CategoriaDao extends BaseDao implements IGetAll<Categoria>  {
+public class CategoriaDao extends BaseDao implements IGetAll<Categoria> {
 	private Connection connection;
+
 	@Override
 	public List<Categoria> getAll() throws SQLException {
 		List<Categoria> categorias = new ArrayList<Categoria>();
@@ -31,8 +28,8 @@ public class CategoriaDao extends BaseDao implements IGetAll<Categoria>  {
 				int idcategoria = resultSet.getInt("id");
 				String nombre = resultSet.getString("nombre");
 				String url = resultSet.getString("url");
-				
-				categorias.add(new Categoria(idcategoria,url,nombre, null));
+				String tipo = resultSet.getString("tipo");
+				categorias.add(new Categoria(idcategoria, url, nombre, tipo, null));
 
 			}
 
@@ -50,10 +47,4 @@ public class CategoriaDao extends BaseDao implements IGetAll<Categoria>  {
 		return categorias;
 	}
 
-	
-
-	
-
-	
-	
 }

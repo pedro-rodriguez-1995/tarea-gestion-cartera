@@ -1,6 +1,7 @@
 package com.sinensia.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,40 +10,48 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sinensia.business.MovimientoLogic;
+
 /**
- * Servlet implementation class MainappController
+ * Servlet implementation class DetalleController
  */
-public class MainappController extends HttpServlet {
+public class DetalleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public MainappController() {
+	public DetalleController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int intmes = (Integer) session.getAttribute("intmes");
 		int idusuario = (Integer) session.getAttribute("idusuario");
-		String destination = "mainapp.jsp";
+		int idcategoria = Integer.valueOf(request.getParameter("idcategoria"));
+		String destination = "detalle.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
 		request.setAttribute("intmes", intmes);
 		request.setAttribute("idusuario", idusuario);
-		requestDispatcher.forward(request, response);
+		request.setAttribute("idcategoria", idcategoria);
 
+		if (request.getParameter("idmovimiento") != null) {
+			int idmovimiento = Integer.parseInt(request.getParameter("idmovimiento"));
+			try {
+				MovimientoLogic.borrarMovimiento(idmovimiento);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		requestDispatcher.forward(request, response);
 	}
 
 }
