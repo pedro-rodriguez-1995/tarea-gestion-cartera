@@ -76,7 +76,7 @@ La aplicación comienza con una pantalla general con el total de todos los gasto
 
 La aplicacion web estará ubicada en un servidor gratuito de heroku:
 
-https://sinensia-pedro.herokuapp.com/ (ejemplo)
+https://sinensia-pedro.herokuapp.com/ 
 
 Solo seria necesario un navegador compatible con dicha página para su uso
 
@@ -85,7 +85,7 @@ Solo seria necesario un navegador compatible con dicha página para su uso
 <!-- CONTACT -->
 ## Colaboradores
 * Pedro Rodríguez Jiménez - https://github.com/pedro-rodriguez-1995
-* Octavi Serra Calahorra - https://github.com/OctaviSerra
+
 
 
 
