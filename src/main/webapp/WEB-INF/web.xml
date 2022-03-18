@@ -22,6 +22,18 @@
   	<description></description>
   	<servlet-class>com.sinensia.controllers.UsuarioFormController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>InsertarMovController</servlet-name>
+  	<display-name>InsertarMovController</display-name>
+  	<description></description>
+  	<servlet-class>com.sinensia.controllers.InsertarMovController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DetalleController</servlet-name>
+  	<display-name>DetalleController</display-name>
+  	<description></description>
+  	<servlet-class>com.sinensia.controllers.DetalleController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>LoginController</servlet-name>
   	<url-pattern>/LoginController</url-pattern>
@@ -34,6 +46,14 @@
   	<servlet-name>UsuarioFormController</servlet-name>
   	<url-pattern>/UsuarioFormController</url-pattern>
   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>InsertarMovController</servlet-name>
+   	<url-pattern>/InsertarMovController</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>DetalleController</servlet-name>
+   	<url-pattern>/DetalleController</url-pattern>
+   </servlet-mapping>
   
   <welcome-file-list>
   	<welcome-file>login.jsp</welcome-file>

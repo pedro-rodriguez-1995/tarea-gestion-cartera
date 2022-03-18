@@ -1,6 +1,7 @@
 package com.sinensia.controllers;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -11,21 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sinensia.business.UsuarioLogic;
+import com.sinensia.business.MovimientoLogic;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class InsertarMovController
  */
-public class LoginController extends HttpServlet {
+public class InsertarMovController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoginController() {
+	public InsertarMovController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -33,18 +39,23 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String nombre = request.getParameter("nombre");
-		String password = request.getParameter("password");
-
+		HttpSession session = request.getSession();
+		int idusuario = (Integer) session.getAttribute("idusuario");
+		int idcategoria = Integer.valueOf(request.getParameter("categoriaid"));
+		String tipo = request.getParameter("tipo");
+		BigDecimal importe = new BigDecimal(request.getParameter("importe"));
+		LocalDate fecha = LocalDate.now();
+		String destination = request.getParameter("return");
 		try {
-			Integer idusuario = UsuarioLogic.comprobarUsuario(nombre, password);
-			if (idusuario != 0) {
-				HttpSession session = request.getSession();
-				session.setAttribute("idusuario", idusuario);
-				session.setAttribute("intmes", LocalDate.now().getMonthValue());
-				response.sendRedirect(request.getContextPath() + "/MainappController");
+
+			if (MovimientoLogic.insertarMovimiento(idcategoria, idusuario, importe, tipo, fecha) != 0) {
+
+				request.setAttribute("errorstatus", "false");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
+				requestDispatcher.forward(request, response);
 			} else {
-				String destination = "login.jsp";
+
+				;
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
 				request.setAttribute("errorstatus", "true");
 				requestDispatcher.forward(request, response);
@@ -54,7 +65,6 @@ public class LoginController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 }

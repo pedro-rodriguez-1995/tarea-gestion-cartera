@@ -11,7 +11,8 @@ PRIMARY KEY (`id`)
 CREATE TABLE categorias(
     id INT AUTO_INCREMENT PRIMARY KEY,
     url varchar(200) not null,
-    nombre varchar(50) not null
+    nombre varchar(50) not null,
+    tipo varchar(50) not null
 ) ENGINE=INNODB;
 
 CREATE TABLE movimientos(

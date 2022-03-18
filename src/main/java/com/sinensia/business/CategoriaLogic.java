@@ -2,6 +2,7 @@ package com.sinensia.business;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,29 +16,39 @@ import com.sinensia.model.Movimiento;
 
 public class CategoriaLogic {
 
-	public static Map<Categoria, BigDecimal> listarCategoriasUsuario(int idusuario, int mes) throws SQLException {
+	public static Map<Categoria, BigDecimal> listarCategoriasUsuarioTipo(int idusuario, int mes, String tipo)
+			throws SQLException {
 		Map<Categoria, BigDecimal> mapcategoria = new HashMap<Categoria, BigDecimal>();
 		IGetAll<Categoria> categoriaDao = new CategoriaDao();
 		IGetByUserIdAndCategoryId<Movimiento> movimientoDao = new MovimientoDao();
 		List<Categoria> listacategorias = categoriaDao.getAll();
 
 		for (Categoria categoria : listacategorias) {
-			categoria
-					.setListamovimientos(movimientoDao.getByUserIdAndCategoryId(idusuario, categoria.getIdcategoria()));
+			if (categoria.getTipo().equals(tipo)) {
+				categoria.setListamovimientos(
+						movimientoDao.getByUserIdAndCategoryId(idusuario, categoria.getIdcategoria()));
 
-			BigDecimal totalcategoria = MovimientoLogic.totalMovimientosCategoria(idusuario, categoria.getIdcategoria(),
-					mes);
+				BigDecimal totalcategoria = MovimientoLogic.totalMovimientosCategoria(idusuario,
+						categoria.getIdcategoria(), mes);
 
-			mapcategoria.put(categoria, totalcategoria);
-
+				mapcategoria.put(categoria, totalcategoria);
+			}
 		}
 
 		return mapcategoria;
 	}
 
-	public static List<Categoria> listarCategorias() throws SQLException {
+	public static List<Categoria> listarCategoriasTipo(String tipo) throws SQLException {
 		IGetAll<Categoria> categoriaDao = new CategoriaDao();
-		return categoriaDao.getAll();
+		List<Categoria> listacategorias = new ArrayList<Categoria>();
+
+		for (Categoria categoria : categoriaDao.getAll()) {
+			if (categoria.getTipo().equals(tipo)) {
+				listacategorias.add(categoria);
+			}
+		}
+
+		return listacategorias;
 
 	}
 }

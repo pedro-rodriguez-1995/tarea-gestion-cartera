@@ -8,6 +8,7 @@ import java.util.List;
 import com.sinensia.contract.IAdd;
 import com.sinensia.contract.IGetByUserId;
 import com.sinensia.contract.IGetByUserIdAndCategoryId;
+import com.sinensia.contract.IRemove;
 import com.sinensia.dao.MovimientoDao;
 import com.sinensia.model.Movimiento;
 
@@ -71,5 +72,10 @@ public class MovimientoLogic {
 		movimiento.setFecha(LocalDate.now());
 		return movimientoDao.add(movimiento);
 
+	}
+
+	public static int borrarMovimiento(int idmovimiento) throws SQLException {
+		IRemove<Movimiento> movimientoDao = new MovimientoDao();
+		return movimientoDao.remove(idmovimiento);
 	}
 }
