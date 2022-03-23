@@ -14,8 +14,7 @@ import com.sinensia.model.Movimiento;
 
 public class MovimientoLogic {
 
-	public static List<Movimiento> listarMovimientosCategoria(int idusuario, int idcategoria, int mes)
-			throws SQLException {
+	public List<Movimiento> listarMovimientosCategoria(int idusuario, int idcategoria, int mes) throws SQLException {
 		IGetByUserIdAndCategoryId<Movimiento> movimientoDao = new MovimientoDao();
 		List<Movimiento> listamovmes = movimientoDao.getByUserIdAndCategoryId(idusuario, idcategoria);
 		for (Movimiento movimiento : listamovmes) {
@@ -29,7 +28,7 @@ public class MovimientoLogic {
 
 	}
 
-	public static BigDecimal totalMovimientos(int idusuario, int mes) throws SQLException {
+	public BigDecimal totalMovimientos(int idusuario, int mes) throws SQLException {
 		IGetByUserId<Movimiento> movimientoDao = new MovimientoDao();
 		List<Movimiento> listamovimientos = movimientoDao.getByUserId(idusuario);
 		BigDecimal total = new BigDecimal(0);
@@ -45,7 +44,7 @@ public class MovimientoLogic {
 		return total;
 	}
 
-	public static BigDecimal totalMovimientosCategoria(int idusuario, int idcategoria, int mes) throws SQLException {
+	public BigDecimal totalMovimientosCategoria(int idusuario, int idcategoria, int mes) throws SQLException {
 		IGetByUserIdAndCategoryId<Movimiento> movimientoDao = new MovimientoDao();
 		List<Movimiento> listamovimientos = movimientoDao.getByUserIdAndCategoryId(idusuario, idcategoria);
 		BigDecimal total = new BigDecimal(0);
@@ -61,8 +60,8 @@ public class MovimientoLogic {
 		return total;
 	}
 
-	public static int insertarMovimiento(int idcategoria, int idusuario, BigDecimal importe, String tipo,
-			LocalDate fecha) throws SQLException {
+	public int insertarMovimiento(int idcategoria, int idusuario, BigDecimal importe, String tipo, LocalDate fecha)
+			throws SQLException {
 		IAdd<Movimiento> movimientoDao = new MovimientoDao();
 		Movimiento movimiento = new Movimiento();
 		movimiento.setIdcategoria(idcategoria);
@@ -74,7 +73,7 @@ public class MovimientoLogic {
 
 	}
 
-	public static int borrarMovimiento(int idmovimiento) throws SQLException {
+	public int borrarMovimiento(int idmovimiento) throws SQLException {
 		IRemove<Movimiento> movimientoDao = new MovimientoDao();
 		return movimientoDao.remove(idmovimiento);
 	}

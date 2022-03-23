@@ -37,7 +37,8 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 
 		try {
-			Integer idusuario = UsuarioLogic.comprobarUsuario(nombre, password);
+			UsuarioLogic userlogic = new UsuarioLogic();
+			Integer idusuario = userlogic.comprobarUsuario(nombre, password);
 			if (idusuario != 0) {
 				HttpSession session = request.getSession();
 				session.setAttribute("idusuario", idusuario);

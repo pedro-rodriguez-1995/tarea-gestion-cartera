@@ -16,7 +16,7 @@ import com.sinensia.model.Movimiento;
 
 public class CategoriaLogic {
 
-	public static Map<Categoria, BigDecimal> listarCategoriasUsuarioTipo(int idusuario, int mes, String tipo)
+	public Map<Categoria, BigDecimal> listarCategoriasUsuarioTipo(int idusuario, int mes, String tipo)
 			throws SQLException {
 		Map<Categoria, BigDecimal> mapcategoria = new HashMap<Categoria, BigDecimal>();
 		IGetAll<Categoria> categoriaDao = new CategoriaDao();
@@ -27,9 +27,9 @@ public class CategoriaLogic {
 			if (categoria.getTipo().equals(tipo)) {
 				categoria.setListamovimientos(
 						movimientoDao.getByUserIdAndCategoryId(idusuario, categoria.getIdcategoria()));
-
-				BigDecimal totalcategoria = MovimientoLogic.totalMovimientosCategoria(idusuario,
-						categoria.getIdcategoria(), mes);
+				MovimientoLogic movlogic = new MovimientoLogic();
+				BigDecimal totalcategoria = movlogic.totalMovimientosCategoria(idusuario, categoria.getIdcategoria(),
+						mes);
 
 				mapcategoria.put(categoria, totalcategoria);
 			}
@@ -38,7 +38,7 @@ public class CategoriaLogic {
 		return mapcategoria;
 	}
 
-	public static List<Categoria> listarCategoriasTipo(String tipo) throws SQLException {
+	public List<Categoria> listarCategoriasTipo(String tipo) throws SQLException {
 		IGetAll<Categoria> categoriaDao = new CategoriaDao();
 		List<Categoria> listacategorias = new ArrayList<Categoria>();
 

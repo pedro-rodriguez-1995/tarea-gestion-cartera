@@ -43,7 +43,8 @@
 				<label for="categoriaid">Categoria:</label> <select
 					name="categoriaid" id="categoriaid">
 					<%
-					for (Categoria categoria : CategoriaLogic.listarCategoriasTipo("gasto")) {
+					CategoriaLogic catlogic = new CategoriaLogic();
+					for (Categoria categoria : catlogic.listarCategoriasTipo("gasto")) {
 					%>
 					<option value="<%=categoria.getIdcategoria()%>"><%=categoria.getNombre()%></option>
 					<%

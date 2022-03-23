@@ -45,7 +45,8 @@ public class DetalleController extends HttpServlet {
 		if (request.getParameter("idmovimiento") != null) {
 			int idmovimiento = Integer.parseInt(request.getParameter("idmovimiento"));
 			try {
-				MovimientoLogic.borrarMovimiento(idmovimiento);
+				MovimientoLogic movlogic = new MovimientoLogic();
+				movlogic.borrarMovimiento(idmovimiento);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

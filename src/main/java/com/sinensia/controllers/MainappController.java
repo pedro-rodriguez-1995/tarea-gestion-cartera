@@ -36,6 +36,10 @@ public class MainappController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int intmes = (Integer) session.getAttribute("intmes");
+		if (request.getParameter("page") != null) {
+			intmes = Integer.parseInt(request.getParameter("page"));
+		}
+
 		int idusuario = (Integer) session.getAttribute("idusuario");
 		String destination = "mainapp.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
