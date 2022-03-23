@@ -35,8 +35,8 @@ public class UsuarioFormController extends HttpServlet {
 		String password = request.getParameter("password");
 
 		try {
-
-			if (UsuarioLogic.insertarUsuario(nombre, password) != 0) {
+			UsuarioLogic userlogic = new UsuarioLogic();
+			if (userlogic.insertarUsuario(nombre, password) != 0) {
 
 				String destination = "usuarioform.jsp";
 				request.setAttribute("errorstatus", "false");

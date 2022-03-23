@@ -47,8 +47,8 @@ public class InsertarMovController extends HttpServlet {
 		LocalDate fecha = LocalDate.now();
 		String destination = request.getParameter("return");
 		try {
-
-			if (MovimientoLogic.insertarMovimiento(idcategoria, idusuario, importe, tipo, fecha) != 0) {
+			MovimientoLogic movlogic = new MovimientoLogic();
+			if (movlogic.insertarMovimiento(idcategoria, idusuario, importe, tipo, fecha) != 0) {
 
 				request.setAttribute("errorstatus", "false");
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);

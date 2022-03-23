@@ -29,11 +29,22 @@
 		int intmes =(Integer) request.getAttribute("intmes");
 		String mes = LocalDate.of(2022, intmes, 1).getMonth().getDisplayName(TextStyle.FULL, spanishLocale);
 		%>
-
+		
 
 		<h2>
-			Listado de movimientos por categoría de
-			<%=mes%></h2>
+			Listado de movimientos por categoría </h2>
+			<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+			<%if(intmes>1){ %>
+				<li class="page-item"><a class="page-link" href="MainappController?page=<%=intmes-1 %>"
+					tabindex="-1">&laquo;</a></li>
+			<%} %>
+				<li class="page-item"><%=mes%></li>
+				<%if(intmes<12){ %>
+				<li class="page-item"><a class="page-link" href="MainappController?page=<%=intmes+1 %>">&raquo;</a></li>
+				<%} %>
+			</ul>
+		</nav>
 		<h1>Gastos</h1>
 		<table class="table">
 			<thead>
@@ -47,12 +58,15 @@
 			<tbody>
 				<%
 				int idusuario = (Integer) request.getAttribute("idusuario");
-				Map<Categoria, BigDecimal> listacategoriasgasto = CategoriaLogic.listarCategoriasUsuarioTipo(idusuario, intmes,"gasto");
+				MovimientoLogic movlogic = new MovimientoLogic();
+				CategoriaLogic catlogic = new CategoriaLogic();
+				Map<Categoria, BigDecimal> listacategoriasgasto = catlogic.listarCategoriasUsuarioTipo(idusuario, intmes,"gasto");
 
 				for (Map.Entry<Categoria, BigDecimal> entry : listacategoriasgasto.entrySet()) {
 				%>
 				<tr>
-					<th scope="row"><img class="img-fluid" width="40" height="40" src="<%=entry.getKey().getUrlimagen()%>"></th>
+					<th scope="row"><img class="img-fluid" width="40" height="40"
+						src="<%=entry.getKey().getUrlimagen()%>"></th>
 					<td><%=entry.getKey().getNombre()%></td>
 					<td><%=entry.getValue()%> EUR</td>
 					<td><form action="DetalleController" method="post"
@@ -81,12 +95,13 @@
 			<tbody>
 				<%
 				
-				Map<Categoria, BigDecimal> listacategoriasingreso = CategoriaLogic.listarCategoriasUsuarioTipo(idusuario, intmes,"ingreso");
+				Map<Categoria, BigDecimal> listacategoriasingreso = catlogic.listarCategoriasUsuarioTipo(idusuario, intmes,"ingreso");
 
 				for (Map.Entry<Categoria, BigDecimal> entry : listacategoriasingreso.entrySet()) {
 				%>
 				<tr>
-					<th scope="row"><img class="img-fluid" width="40" height="40" src="<%=entry.getKey().getUrlimagen()%>"></th>
+					<th scope="row"><img class="img-fluid" width="40" height="40"
+						src="<%=entry.getKey().getUrlimagen()%>"></th>
 					<td><%=entry.getKey().getNombre()%></td>
 					<td><%=entry.getValue()%> EUR</td>
 					<td><form action="DetalleController" method="post"
@@ -102,32 +117,34 @@
 				%>
 			</tbody>
 		</table>
-	<div class="row">
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
-      <h3>Total: <%=MovimientoLogic.totalMovimientos(idusuario, intmes) %> EUR</h3>
-    </div>
-    <div class="col-sm">
-    </div>
-  </div>
-		
-		
- <div class="row">
-    <div class="col-sm">
-    <a href="insertargasto.jsp" class="btn btn-primary btn-lg active" role="button" >Nuevo Gasto</a>
-    </div>
-    <div class="col-sm">
-      
-    </div>
-    <div class="col-sm">
-      <a href="insertaringreso.jsp" class="btn btn-primary btn-lg active" role="button" >Nuevo Ingreso</a>
-    </div>
-  </div>
+		<div class="row">
+			<div class="col-sm"></div>
+			<div class="col-sm">
+				<h3>
+					Total:
+					<%=movlogic.totalMovimientos(idusuario, intmes) %>
+					EUR
+				</h3>
+			</div>
+			<div class="col-sm"></div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-sm">
+				<a href="insertargasto.jsp" class="btn btn-primary btn-lg active"
+					role="button">Nuevo Gasto</a>
+			</div>
+			<div class="col-sm"></div>
+			<div class="col-sm">
+				<a href="insertaringreso.jsp" class="btn btn-primary btn-lg active"
+					role="button">Nuevo Ingreso</a>
+			</div>
+		</div>
 	</div>
-	
-	
-		
-	
+
+
+
+
 </body>
 </html>

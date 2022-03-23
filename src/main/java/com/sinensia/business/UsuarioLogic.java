@@ -10,7 +10,7 @@ import com.sinensia.model.Usuario;
 
 public class UsuarioLogic {
 
-	public static int comprobarUsuario(String nombre, String password) throws SQLException {
+	public int comprobarUsuario(String nombre, String password) throws SQLException {
 		int idusuario = 0;
 		IGetAll<Usuario> usuarioDao = new UsuarioDao();
 		List<Usuario> usuarios = usuarioDao.getAll();
@@ -25,7 +25,7 @@ public class UsuarioLogic {
 		return idusuario;
 	}
 
-	public static int insertarUsuario(String nombre, String password) throws SQLException {
+	public int insertarUsuario(String nombre, String password) throws SQLException {
 		boolean existe = false;
 		int idusuario = 0;
 		IGetAll<Usuario> usuarioDao = new UsuarioDao();

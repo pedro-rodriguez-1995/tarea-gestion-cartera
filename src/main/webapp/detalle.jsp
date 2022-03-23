@@ -44,7 +44,8 @@
 				<%
 				int idusuario = (Integer) request.getAttribute("idusuario");
 				int idcategoria = (Integer) request.getAttribute("idcategoria");
-				List<Movimiento> listamov =MovimientoLogic.listarMovimientosCategoria(idusuario, idcategoria, intmes);
+				MovimientoLogic movlogic = new MovimientoLogic();
+				List<Movimiento> listamov =movlogic.listarMovimientosCategoria(idusuario, idcategoria, intmes);
 
 				for (Movimiento mov : listamov) {
 				%>
@@ -72,7 +73,7 @@
     <div class="col-sm">
     </div>
     <div class="col-sm">
-      <h3>Total: <%=MovimientoLogic.totalMovimientosCategoria(idusuario,idcategoria, intmes) %> EUR</h3>
+      <h3>Total: <%=movlogic.totalMovimientosCategoria(idusuario,idcategoria, intmes) %> EUR</h3>
     </div>
     <div class="col-sm">
     </div>

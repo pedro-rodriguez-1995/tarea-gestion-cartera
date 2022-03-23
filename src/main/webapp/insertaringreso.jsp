@@ -41,7 +41,9 @@
 			<div class="mb-3 mt-3">
 				<label for="categoriaid">Categoria:</label> <select
 					name="categoriaid" id="categoriaid">
-					<% for(Categoria categoria : CategoriaLogic.listarCategoriasTipo("ingreso")){ %>
+					<% 
+					CategoriaLogic catlogic = new CategoriaLogic();
+					for(Categoria categoria : catlogic.listarCategoriasTipo("ingreso")){ %>
 						<option value="<%=categoria.getIdcategoria() %>"><%=categoria.getNombre() %></option>
 					<%} %>
 				</select>
