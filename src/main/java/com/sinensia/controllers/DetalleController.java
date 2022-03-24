@@ -2,6 +2,7 @@ package com.sinensia.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.sinensia.business.MovimientoLogic;
+import com.sinensia.model.Movimiento;
 
 /**
  * Servlet implementation class DetalleController
@@ -42,15 +44,23 @@ public class DetalleController extends HttpServlet {
 		request.setAttribute("idusuario", idusuario);
 		request.setAttribute("idcategoria", idcategoria);
 
-		if (request.getParameter("idmovimiento") != null) {
-			int idmovimiento = Integer.parseInt(request.getParameter("idmovimiento"));
-			try {
-				MovimientoLogic movlogic = new MovimientoLogic();
+		// int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		// int recordsPerPage =
+		// Integer.parseInt(request.getParameter("recordsPerPage"));
+		MovimientoLogic movlogic = new MovimientoLogic();
+
+		try {
+			List<Movimiento> listamov = movlogic.listarMovimientosCategoria(idusuario, idcategoria, intmes);
+			request.setAttribute("listamov", listamov);
+			if (request.getParameter("idmovimiento") != null) {
+				int idmovimiento = Integer.parseInt(request.getParameter("idmovimiento"));
+
 				movlogic.borrarMovimiento(idmovimiento);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		requestDispatcher.forward(request, response);
 	}

@@ -45,7 +45,8 @@
 				int idusuario = (Integer) request.getAttribute("idusuario");
 				int idcategoria = (Integer) request.getAttribute("idcategoria");
 				MovimientoLogic movlogic = new MovimientoLogic();
-				List<Movimiento> listamov =movlogic.listarMovimientosCategoria(idusuario, idcategoria, intmes);
+				@SuppressWarnings("unchecked")
+				List<Movimiento> listamov =(List<Movimiento>)request.getAttribute("listamov");
 
 				for (Movimiento mov : listamov) {
 				%>
