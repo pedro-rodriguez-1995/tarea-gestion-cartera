@@ -43,6 +43,7 @@ Este proyecto es para un curso de Java+Liferay, la tarea pide crear un aplicaci�
 * Control de gastos por categorías
 * Control de ingresos por categorías
 * Resumen por tiempo de ingresos, gastos y total
+* Función de usuario con ingresos y gastos por usuario
 
 
 <p align="right">(<a href="#top">volver arriba</a>)</p>
@@ -67,7 +68,7 @@ La aplicación comienza con una pantalla general con el total de todos los gasto
 * Función para añadir gastos seleccionando una cantidad y una categoria de gasto
 * Función para añadir ingresos seleccionando una cantidad y una categoria de ingreso
 * Vista con un resumen por tiempo de todos los gastos e ingresos
-* Función para crear y gestionar categorías de gastos 
+* Función de creación de usuario y registro
 
 <p align="right">(<a href="#top">volver arriba</a>)</p>
 
