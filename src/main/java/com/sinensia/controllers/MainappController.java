@@ -35,12 +35,20 @@ public class MainappController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		int intmes = (Integer) session.getAttribute("intmes");
+		int intmes = 1;
+		int idusuario = 0;
+		if (session.getAttribute("intmes") != null) {
+			intmes = (Integer) session.getAttribute("intmes");
+
+		}
+		if (session.getAttribute("idusuario") != null) {
+			idusuario = (Integer) session.getAttribute("idusuario");
+
+		}
 		if (request.getParameter("page") != null) {
 			intmes = Integer.parseInt(request.getParameter("page"));
 		}
 
-		int idusuario = (Integer) session.getAttribute("idusuario");
 		String destination = "mainapp.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
 		request.setAttribute("intmes", intmes);

@@ -34,6 +34,12 @@
   	<description></description>
   	<servlet-class>com.sinensia.controllers.DetalleController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LogoutController</servlet-name>
+  	<display-name>LogoutController</display-name>
+  	<description></description>
+  	<servlet-class>com.sinensia.controllers.LogoutController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>LoginController</servlet-name>
   	<url-pattern>/LoginController</url-pattern>
@@ -53,6 +59,10 @@
    <servlet-mapping>
    	<servlet-name>DetalleController</servlet-name>
    	<url-pattern>/DetalleController</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>LogoutController</servlet-name>
+   	<url-pattern>/LogoutController</url-pattern>
    </servlet-mapping>
   
   <welcome-file-list>

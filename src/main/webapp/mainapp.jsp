@@ -10,6 +10,7 @@
 <%@ page import="java.util.Locale"%>
 <%@ page import="java.math.BigDecimal"%>
 <%@ page import="java.time.format.TextStyle"%>
+<jsp:include page="logchecker.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
