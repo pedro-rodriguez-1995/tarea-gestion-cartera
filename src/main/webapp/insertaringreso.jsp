@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="com.sinensia.business.CategoriaLogic"%>
 <%@ page import="com.sinensia.model.Categoria"%>
+<jsp:include page="logchecker.jsp"/>
 <!DOCTYPE html>
 <html lang="es">
 <head>
