@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<jsp:include page="logchecker.jsp"/>
 <%@ page import="com.sinensia.business.MovimientoLogic"%>
 <%@ page import="com.sinensia.model.Movimiento"%>
 <%@ page import="java.time.LocalDate"%>
