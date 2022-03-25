@@ -44,20 +44,30 @@ public class DetalleController extends HttpServlet {
 		request.setAttribute("idusuario", idusuario);
 		request.setAttribute("idcategoria", idcategoria);
 
-		// int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		// int recordsPerPage =
-		// Integer.parseInt(request.getParameter("recordsPerPage"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int recordsPerPage = Integer.parseInt(request.getParameter("recordsPerPage"));
 		MovimientoLogic movlogic = new MovimientoLogic();
 
 		try {
-			List<Movimiento> listamov = movlogic.listarMovimientosCategoria(idusuario, idcategoria, intmes);
-			request.setAttribute("listamov", listamov);
 			if (request.getParameter("idmovimiento") != null) {
 				int idmovimiento = Integer.parseInt(request.getParameter("idmovimiento"));
 
 				movlogic.borrarMovimiento(idmovimiento);
 
 			}
+
+			List<Movimiento> listamov = movlogic.listarMovimientosCategoriaPag(idusuario, idcategoria, intmes,
+					currentPage, recordsPerPage);
+			int rows = movlogic.listarMovimientosCategoria(idusuario, idcategoria, intmes).size();
+
+			int nOfPages = movlogic.numOfPages(rows, recordsPerPage);
+
+			request.setAttribute("noOfPages", nOfPages);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("recordsPerPage", recordsPerPage);
+
+			request.setAttribute("listamov", listamov);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

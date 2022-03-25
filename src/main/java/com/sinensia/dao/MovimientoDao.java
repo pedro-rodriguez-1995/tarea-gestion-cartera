@@ -14,8 +14,8 @@ import com.sinensia.contract.IAdd;
 import com.sinensia.contract.IGetById;
 import com.sinensia.contract.IGetByUserId;
 import com.sinensia.contract.IGetByUserIdAndCategoryId;
-import com.sinensia.contract.IRemove;
 import com.sinensia.contract.IModify;
+import com.sinensia.contract.IRemove;
 import com.sinensia.model.Movimiento;
 
 public class MovimientoDao extends BaseDao implements IAdd<Movimiento>, IGetByUserId<Movimiento>, IRemove<Movimiento>,
@@ -246,11 +246,58 @@ public class MovimientoDao extends BaseDao implements IAdd<Movimiento>, IGetByUs
 			if (preparedStatement != null) {
 				preparedStatement.close();
 			}
+			if (connect != null) {
+				connect.close();
+			}
 		}
-		if (connect != null) {
-			connect.close();
-		}
+
 		return movimiento;
+	}
+
+	@Override
+	public List<Movimiento> getByUserIdAndCategoryIdPag(int userid, int categoriaid, int currentPage,
+			int recordsPerPage) throws SQLException {
+		List<Movimiento> listamovimientos = new ArrayList<Movimiento>();
+		int start = currentPage * recordsPerPage - recordsPerPage;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			connect = super.getConnection();
+			preparedStatement = connect
+					.prepareStatement("SELECT * FROM movimientos WHERE idUsuario = ? AND idCategoria = ? LIMIT ?, ?");
+			preparedStatement.setString(1, Integer.toString(userid));
+			preparedStatement.setString(2, Integer.toString(categoriaid));
+			preparedStatement.setInt(3, start);
+			preparedStatement.setInt(4, recordsPerPage);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+
+				int idmovimiento = resultSet.getInt("id");
+				int idusuario = resultSet.getInt("idUsuario");
+				int idcategoria = resultSet.getInt("idcategoria");
+				String tipo = resultSet.getString("tipo");
+				BigDecimal importe = resultSet.getBigDecimal("importe");
+				LocalDate fecha = LocalDate.parse(resultSet.getString("fecha"));
+
+				Movimiento movimiento = new Movimiento(idmovimiento, idusuario, importe, idcategoria, tipo, fecha);
+
+				listamovimientos.add(movimiento);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+			if (connect != null) {
+				connect.close();
+			}
+		}
+
+		return listamovimientos;
 	}
 
 }

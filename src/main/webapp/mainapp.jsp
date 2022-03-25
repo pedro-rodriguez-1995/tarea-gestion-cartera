@@ -34,7 +34,7 @@
 
 		<h2>
 			Listado de movimientos por categoría </h2>
-			<nav aria-label="Page navigation example">
+			<nav>
 			<ul class="pagination justify-content-center">
 			<%if(intmes>1){ %>
 				<li class="page-item"><a class="page-link" href="MainappController?page=<%=intmes-1 %>"
@@ -72,6 +72,8 @@
 					<td><%=entry.getValue()%> EUR</td>
 					<td><form action="DetalleController" method="post"
 							id="formdetalle">
+							<input type="hidden" name="recordsPerPage" value="5">
+							<input type="hidden" name="currentPage" value="1">
 							<button type="submit" form="formdetalle" id="idcategoria"
 								name="idcategoria" value="<%=entry.getKey().getIdcategoria()%>">Detalle</button>
 						</form></td>
@@ -107,6 +109,8 @@
 					<td><%=entry.getValue()%> EUR</td>
 					<td><form action="DetalleController" method="post"
 							id="formdetalle">
+							<input type="hidden" name="recordsPerPage" value="5">
+							<input type="hidden" name="currentPage" value="1">
 							<button type="submit" form="formdetalle" id="idcategoria"
 								name="idcategoria" value="<%=entry.getKey().getIdcategoria()%>">Detalle</button>
 						</form></td>

@@ -77,4 +77,30 @@ public class MovimientoLogic {
 		IRemove<Movimiento> movimientoDao = new MovimientoDao();
 		return movimientoDao.remove(idmovimiento);
 	}
+
+	public List<Movimiento> listarMovimientosCategoriaPag(int idusuario, int idcategoria, int mes, int currentPage,
+			int recordsPerPage) throws SQLException {
+		IGetByUserIdAndCategoryId<Movimiento> movimientoDao = new MovimientoDao();
+		List<Movimiento> listamovmes = movimientoDao.getByUserIdAndCategoryIdPag(idusuario, idcategoria, currentPage,
+				recordsPerPage);
+		for (Movimiento movimiento : listamovmes) {
+
+			if (movimiento.getFecha().getMonthValue() != mes) {
+				listamovmes.remove(movimiento);
+			}
+
+		}
+		return listamovmes;
+
+	}
+
+	public int numOfPages(int rows, int recordsPerPage) {
+		int nOfPages = rows / recordsPerPage;
+
+		if (nOfPages % recordsPerPage > 0) {
+
+			nOfPages++;
+		}
+		return nOfPages;
+	}
 }

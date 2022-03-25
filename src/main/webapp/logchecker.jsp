@@ -5,7 +5,6 @@
 <html>
 <head>
   <%
-	System.out.println("1");
 	if (session.getAttribute("idusuario")==null){
 		
 		%>
