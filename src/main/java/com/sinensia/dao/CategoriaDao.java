@@ -40,10 +40,11 @@ public class CategoriaDao extends BaseDao implements IGetAll<Categoria> {
 			if (preparedStatement != null) {
 				preparedStatement.close();
 			}
+			if (connection != null) {
+				connection.close();
+			}
 		}
-		if (connection != null) {
-			connection.close();
-		}
+
 		return categorias;
 	}
 
