@@ -52,8 +52,9 @@ public class LoginController extends HttpServlet {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
+			throw new ServletException("Error de SQL: " + e.getMessage());
 		}
 
 	}

@@ -124,10 +124,11 @@ public class MovimientoDao extends BaseDao implements IAdd<Movimiento>, IGetByUs
 			if (preparedStatement != null) {
 				preparedStatement.close();
 			}
+			if (connect != null) {
+				connect.close();
+			}
 		}
-		if (connect != null) {
-			connect.close();
-		}
+
 		return listamovimientos;
 	}
 
@@ -208,10 +209,11 @@ public class MovimientoDao extends BaseDao implements IAdd<Movimiento>, IGetByUs
 			if (preparedStatement != null) {
 				preparedStatement.close();
 			}
+			if (connect != null) {
+				connect.close();
+			}
 		}
-		if (connect != null) {
-			connect.close();
-		}
+
 		return listamovimientos;
 	}
 

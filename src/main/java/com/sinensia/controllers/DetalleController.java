@@ -69,8 +69,9 @@ public class DetalleController extends HttpServlet {
 			request.setAttribute("listamov", listamov);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
+			throw new ServletException("Error de SQL: " + e.getMessage());
 		}
 		requestDispatcher.forward(request, response);
 	}
