@@ -1,11 +1,13 @@
 package com.sinensia.dao;
 
 import java.math.BigDecimal;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ public class MovimientoDao extends BaseDao implements IAdd<Movimiento>, IGetByUs
 	public int modify(Movimiento movimiento) throws SQLException {
 		int rows = 0;
 		PreparedStatement preparedStatement = null;
+
 		ResultSet rsKey = null;
 		try {
 			connect = super.getConnection();
@@ -257,10 +260,10 @@ public class MovimientoDao extends BaseDao implements IAdd<Movimiento>, IGetByUs
 	}
 
 	@Override
-	public List<Movimiento> getByUserIdAndCategoryIdPag(int userid, int categoriaid, int currentPage,
-			int recordsPerPage) throws SQLException {
+	public List<Movimiento> getByUserIdAndCategoryIdPag(int userid, int categoriaid, int start, int recordsPerPage)
+			throws SQLException {
 		List<Movimiento> listamovimientos = new ArrayList<Movimiento>();
-		int start = currentPage * recordsPerPage - recordsPerPage;
+
 		PreparedStatement preparedStatement = null;
 
 		try {
@@ -300,6 +303,280 @@ public class MovimientoDao extends BaseDao implements IAdd<Movimiento>, IGetByUs
 		}
 
 		return listamovimientos;
+	}
+
+	@Override
+	public Movimiento getByIdStored(int id) throws SQLException {
+		Movimiento movimiento = null;
+
+		CallableStatement callableStatement = null;
+
+		try {
+			connect = super.getConnection();
+			callableStatement = connect.prepareCall("{call getByIdMovimiento(?)}");
+
+			callableStatement.setString(1, Integer.toString(id));
+			ResultSet resultSet = callableStatement.executeQuery();
+			if (resultSet.next()) {
+				int idmovimiento = resultSet.getInt("id");
+				int idusuario = resultSet.getInt("idUsuario");
+				int idcategoria = resultSet.getInt("idcategoria");
+				String tipo = resultSet.getString("tipo");
+				BigDecimal importe = resultSet.getBigDecimal("importe");
+				LocalDate fecha = LocalDate.parse(resultSet.getString("fecha"));
+
+				movimiento = new Movimiento(idmovimiento, idusuario, importe, idcategoria, tipo, fecha);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (callableStatement != null) {
+				callableStatement.close();
+			}
+			if (connect != null) {
+				connect.close();
+			}
+		}
+
+		return movimiento;
+	}
+
+	@Override
+	public List<Movimiento> getByUserIdAndCategoryIdStored(int userid, int categoriaid) throws SQLException {
+		List<Movimiento> listamovimientos = new ArrayList<Movimiento>();
+
+		CallableStatement callableStatement = null;
+
+		try {
+			connect = super.getConnection();
+			callableStatement = connect.prepareCall("{call getByUserIdAndCategoryIdMovimiento(?,?)}");
+			callableStatement.setString(1, Integer.toString(userid));
+			callableStatement.setString(2, Integer.toString(categoriaid));
+			ResultSet resultSet = callableStatement.executeQuery();
+
+			while (resultSet.next()) {
+
+				int idmovimiento = resultSet.getInt("id");
+				int idusuario = resultSet.getInt("idUsuario");
+				int idcategoria = resultSet.getInt("idcategoria");
+				String tipo = resultSet.getString("tipo");
+				BigDecimal importe = resultSet.getBigDecimal("importe");
+				LocalDate fecha = LocalDate.parse(resultSet.getString("fecha"));
+
+				Movimiento movimiento = new Movimiento(idmovimiento, idusuario, importe, idcategoria, tipo, fecha);
+
+				listamovimientos.add(movimiento);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (callableStatement != null) {
+				callableStatement.close();
+			}
+			if (connect != null) {
+				connect.close();
+			}
+		}
+
+		return listamovimientos;
+	}
+
+	@Override
+	public List<Movimiento> getByUserIdAndCategoryIdPagStored(int userid, int categoriaid, int start,
+			int recordsPerPage) throws SQLException {
+		List<Movimiento> listamovimientos = new ArrayList<Movimiento>();
+
+		CallableStatement callableStatement = null;
+
+		try {
+			connect = super.getConnection();
+			callableStatement = connect.prepareCall("{call getByUserIdAndCategoryIdMovimientoPag(?, ?, ?, ?)}");
+			callableStatement.setString(1, Integer.toString(userid));
+			callableStatement.setString(2, Integer.toString(categoriaid));
+			callableStatement.setInt(3, start);
+			callableStatement.setInt(4, recordsPerPage);
+			ResultSet resultSet = callableStatement.executeQuery();
+
+			while (resultSet.next()) {
+
+				int idmovimiento = resultSet.getInt("id");
+				int idusuario = resultSet.getInt("idUsuario");
+				int idcategoria = resultSet.getInt("idcategoria");
+				String tipo = resultSet.getString("tipo");
+				BigDecimal importe = resultSet.getBigDecimal("importe");
+				LocalDate fecha = LocalDate.parse(resultSet.getString("fecha"));
+
+				Movimiento movimiento = new Movimiento(idmovimiento, idusuario, importe, idcategoria, tipo, fecha);
+
+				listamovimientos.add(movimiento);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (callableStatement != null) {
+				callableStatement.close();
+			}
+			if (connect != null) {
+				connect.close();
+			}
+		}
+
+		return listamovimientos;
+	}
+
+	@Override
+	public int modifyStored(Movimiento movimiento) throws SQLException {
+		int rows = 0;
+		CallableStatement callableStatement = null;
+
+		ResultSet rsKey = null;
+		try {
+			connect = super.getConnection();
+			callableStatement = connect.prepareCall("{call modifyMovimiento(?,?,?,?)}");
+
+			callableStatement.setString(1, movimiento.getTipo());
+			callableStatement.setString(2, movimiento.getImporte().toString());
+			callableStatement.setString(3, movimiento.getFecha().toString());
+			callableStatement.setString(4, Integer.toString(movimiento.getIdmovimiento()));
+
+			rows = callableStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (callableStatement != null) {
+				callableStatement.close();
+			}
+			if (rsKey != null) {
+				rsKey.close();
+
+			}
+			if (connect != null) {
+				connect.close();
+			}
+
+		}
+
+		return rows;
+	}
+
+	@Override
+	public int removeStored(int id) throws SQLException {
+		int row = 0;
+		CallableStatement callableStatement = null;
+		ResultSet rsKey = null;
+		try {
+			connect = super.getConnection();
+			callableStatement = connect.prepareCall("{call removeMovimiento(?)}");
+
+			callableStatement.setString(1, Integer.toString(id));
+
+			row = callableStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (callableStatement != null) {
+				callableStatement.close();
+			}
+			if (rsKey != null) {
+				rsKey.close();
+
+			}
+			if (connect != null) {
+				connect.close();
+			}
+
+		}
+
+		return row;
+	}
+
+	@Override
+	public List<Movimiento> getByUserIdStored(int userid) throws SQLException {
+		List<Movimiento> listamovimientos = new ArrayList<Movimiento>();
+
+		CallableStatement callableStatement = null;
+
+		try {
+			connect = super.getConnection();
+			callableStatement = connect.prepareCall("{call getByUserIdMovimiento(?)}");
+			callableStatement.setString(1, Integer.toString(userid));
+			ResultSet resultSet = callableStatement.executeQuery();
+
+			while (resultSet.next()) {
+
+				int idmovimiento = resultSet.getInt("id");
+				int idusuario = resultSet.getInt("idUsuario");
+				int idcategoria = resultSet.getInt("idcategoria");
+				String tipo = resultSet.getString("tipo");
+				BigDecimal importe = resultSet.getBigDecimal("importe");
+				LocalDate fecha = LocalDate.parse(resultSet.getString("fecha"));
+
+				Movimiento movimiento = new Movimiento(idmovimiento, idusuario, importe, idcategoria, tipo, fecha);
+
+				listamovimientos.add(movimiento);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (callableStatement != null) {
+				callableStatement.close();
+			}
+			if (connect != null) {
+				connect.close();
+			}
+		}
+
+		return listamovimientos;
+	}
+
+	@Override
+	public int addStored(Movimiento movimiento) throws SQLException {
+		int idmovimiento = 0;
+		CallableStatement callableStatement = null;
+		ResultSet rsKey = null;
+		try {
+			connect = super.getConnection();
+			callableStatement = connect.prepareCall("{call addMovimiento(?,?,?,?,?,?)}");
+
+			callableStatement.setString(1, Integer.toString(movimiento.getIdusuario()));
+			callableStatement.setString(2, Integer.toString(movimiento.getIdcategoria()));
+			callableStatement.setString(3, movimiento.getTipo());
+			callableStatement.setString(4, movimiento.getImporte().toString());
+			callableStatement.setString(5, movimiento.getFecha().toString());
+
+			callableStatement.registerOutParameter(6, Types.INTEGER);
+			callableStatement.executeUpdate();
+			idmovimiento = callableStatement.getInt(6);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (callableStatement != null) {
+				callableStatement.close();
+			}
+			if (rsKey != null) {
+				rsKey.close();
+
+			}
+			if (connect != null) {
+				connect.close();
+			}
+
+		}
+
+		return idmovimiento;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.sinensia.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +40,41 @@ public class CategoriaDao extends BaseDao implements IGetAll<Categoria> {
 		} finally {
 			if (preparedStatement != null) {
 				preparedStatement.close();
+			}
+			if (connection != null) {
+				connection.close();
+			}
+		}
+
+		return categorias;
+	}
+
+	@Override
+	public List<Categoria> getAllStored() throws SQLException {
+		List<Categoria> categorias = new ArrayList<Categoria>();
+
+		CallableStatement callableStatement = null;
+
+		try {
+			connection = super.getConnection();
+			callableStatement = connection.prepareCall("{call getAllCategorias()}");
+
+			ResultSet resultSet = callableStatement.executeQuery();
+			while (resultSet.next()) {
+				int idcategoria = resultSet.getInt("id");
+				String nombre = resultSet.getString("nombre");
+				String url = resultSet.getString("url");
+				String tipo = resultSet.getString("tipo");
+				categorias.add(new Categoria(idcategoria, url, nombre, tipo, null));
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (callableStatement != null) {
+				callableStatement.close();
 			}
 			if (connection != null) {
 				connection.close();

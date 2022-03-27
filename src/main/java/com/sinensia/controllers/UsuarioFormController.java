@@ -31,12 +31,14 @@ public class UsuarioFormController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		String nombre = request.getParameter("nombre");
 		String password = request.getParameter("password");
+		String method = request.getParameter("method");
 
 		try {
 			UsuarioLogic userlogic = new UsuarioLogic();
-			if (userlogic.insertarUsuario(nombre, password) != 0) {
+			if (userlogic.insertarUsuario(nombre, password, method) != 0) {
 
 				String destination = "usuarioform.jsp";
 				request.setAttribute("errorstatus", "false");

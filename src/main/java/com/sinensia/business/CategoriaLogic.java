@@ -16,20 +16,34 @@ import com.sinensia.model.Movimiento;
 
 public class CategoriaLogic {
 
-	public Map<Categoria, BigDecimal> listarCategoriasUsuarioTipo(int idusuario, int mes, String tipo)
+	public Map<Categoria, BigDecimal> listarCategoriasUsuarioTipo(int idusuario, int mes, String tipo, String method)
 			throws SQLException {
 		Map<Categoria, BigDecimal> mapcategoria = new HashMap<Categoria, BigDecimal>();
 		IGetAll<Categoria> categoriaDao = new CategoriaDao();
 		IGetByUserIdAndCategoryId<Movimiento> movimientoDao = new MovimientoDao();
-		List<Categoria> listacategorias = categoriaDao.getAll();
+		List<Categoria> listacategorias = new ArrayList<Categoria>();
+		if (method.equals("stored")) {
+			listacategorias = categoriaDao.getAllStored();
+		} else {
+			listacategorias = categoriaDao.getAll();
+		}
 
 		for (Categoria categoria : listacategorias) {
 			if (categoria.getTipo().equals(tipo)) {
-				categoria.setListamovimientos(
-						movimientoDao.getByUserIdAndCategoryId(idusuario, categoria.getIdcategoria()));
+
+				if (method.equals("stored")) {
+					categoria.setListamovimientos(
+							movimientoDao.getByUserIdAndCategoryIdStored(idusuario, categoria.getIdcategoria()));
+
+				} else {
+					categoria.setListamovimientos(
+							movimientoDao.getByUserIdAndCategoryId(idusuario, categoria.getIdcategoria()));
+
+				}
+
 				MovimientoLogic movlogic = new MovimientoLogic();
 				BigDecimal totalcategoria = movlogic.totalMovimientosCategoria(idusuario, categoria.getIdcategoria(),
-						mes);
+						mes, method);
 
 				mapcategoria.put(categoria, totalcategoria);
 			}
@@ -38,17 +52,23 @@ public class CategoriaLogic {
 		return mapcategoria;
 	}
 
-	public List<Categoria> listarCategoriasTipo(String tipo) throws SQLException {
+	public List<Categoria> listarCategoriasTipo(String tipo, String method) throws SQLException {
 		IGetAll<Categoria> categoriaDao = new CategoriaDao();
 		List<Categoria> listacategorias = new ArrayList<Categoria>();
+		List<Categoria> listacategoriasf = new ArrayList<Categoria>();
+		if (method.equals("stored")) {
+			listacategorias = categoriaDao.getAllStored();
+		} else {
+			listacategorias = categoriaDao.getAll();
+		}
 
-		for (Categoria categoria : categoriaDao.getAll()) {
+		for (Categoria categoria : listacategorias) {
 			if (categoria.getTipo().equals(tipo)) {
-				listacategorias.add(categoria);
+				listacategoriasf.add(categoria);
 			}
 		}
 
-		return listacategorias;
+		return listacategoriasf;
 
 	}
 }

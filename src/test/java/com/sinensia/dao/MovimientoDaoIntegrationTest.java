@@ -1,6 +1,6 @@
 package com.sinensia.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,9 +21,11 @@ import com.sinensia.contract.IGetByUserIdAndCategoryId;
 import com.sinensia.contract.IModify;
 import com.sinensia.contract.IRemove;
 import com.sinensia.model.Movimiento;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MovimientoDaoIntegrationTest {
 	private static int idMovimiento = 0;
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -39,19 +41,21 @@ public class MovimientoDaoIntegrationTest {
 	@After
 	public void tearDown() throws Exception {
 	}
+
 	@Test
 	public void test1Add() throws Exception {
-        Movimiento movimiento = new Movimiento();
-        IAdd<Movimiento> movimientoDao = new MovimientoDao();
-        movimiento.setIdcategoria(5);
-        movimiento.setIdusuario(5);
-        movimiento.setImporte(new BigDecimal(500));
-        movimiento.setTipo("gasto");
-        movimiento.setFecha(LocalDate.now());
-        idMovimiento = movimientoDao.add(movimiento);
-        assertTrue(idMovimiento > 0);
+		Movimiento movimiento = new Movimiento();
+		IAdd<Movimiento> movimientoDao = new MovimientoDao();
+		movimiento.setIdcategoria(5);
+		movimiento.setIdusuario(5);
+		movimiento.setImporte(new BigDecimal(500));
+		movimiento.setTipo("gasto");
+		movimiento.setFecha(LocalDate.now());
+		idMovimiento = movimientoDao.add(movimiento);
+		assertTrue(idMovimiento > 0);
 
-    }
+	}
+
 	@Test
 	public void test2Modify() throws Exception {
 		Movimiento movimiento = new Movimiento();
@@ -63,32 +67,90 @@ public class MovimientoDaoIntegrationTest {
 		int rows = movimientoDao.modify(movimiento);
 		assertTrue(rows > 0);
 	}
+
 	@Test
 	public void test3GetByUserId() throws Exception {
 		IGetByUserId<Movimiento> movimientoDao = new MovimientoDao();
 		List<Movimiento> listaalumnos = movimientoDao.getByUserId(5);
 		assertTrue(!listaalumnos.isEmpty());
 	}
-	
+
 	@Test
 	public void test4GetByUserIdAndCategoryId() throws Exception {
 		IGetByUserIdAndCategoryId<Movimiento> movimientoDao = new MovimientoDao();
-		List<Movimiento> listaalumnos = movimientoDao.getByUserIdAndCategoryId(5,5);
+		List<Movimiento> listaalumnos = movimientoDao.getByUserIdAndCategoryId(5, 5);
 		assertTrue(!listaalumnos.isEmpty());
 	}
-	
+
 	@Test
 	public void test5GetById() throws Exception {
 		IGetById<Movimiento> movimientoDao = new MovimientoDao();
 		Movimiento movimiento = movimientoDao.getById(idMovimiento);
-		assertTrue(movimiento !=null);
+		assertTrue(movimiento != null);
 	}
+
 	@Test
 	public void test6Remove() throws Exception {
 		IRemove<Movimiento> movimientoDao = new MovimientoDao();
 		IGetById<Movimiento> movimientoDao2 = new MovimientoDao();
 		movimientoDao.remove(idMovimiento);
 		Movimiento movimiento = movimientoDao2.getById(5);
-		assertTrue(movimiento ==null);
+		assertTrue(movimiento == null);
+	}
+
+	@Test
+	public void test7AddStored() throws Exception {
+		Movimiento movimiento = new Movimiento();
+		IAdd<Movimiento> movimientoDao = new MovimientoDao();
+		movimiento.setIdcategoria(5);
+		movimiento.setIdusuario(5);
+		movimiento.setImporte(new BigDecimal(500));
+		movimiento.setTipo("gasto");
+		movimiento.setFecha(LocalDate.now());
+		idMovimiento = movimientoDao.addStored(movimiento);
+		assertTrue(idMovimiento > 0);
+
+	}
+
+	@Test
+	public void test8ModifyStored() throws Exception {
+		Movimiento movimiento = new Movimiento();
+		IModify<Movimiento> movimientoDao = new MovimientoDao();
+		movimiento.setTipo("ingreso");
+		movimiento.setImporte(new BigDecimal(300));
+		movimiento.setFecha(LocalDate.now().minusDays(1));
+		movimiento.setIdmovimiento(idMovimiento);
+		int rows = movimientoDao.modifyStored(movimiento);
+		assertTrue(rows > 0);
+	}
+
+	@Test
+	public void test9AGetByUserIdStored() throws Exception {
+		IGetByUserId<Movimiento> movimientoDao = new MovimientoDao();
+		List<Movimiento> listaalumnos = movimientoDao.getByUserIdStored(5);
+		assertTrue(!listaalumnos.isEmpty());
+	}
+
+	@Test
+	public void test9BGetByUserIdAndCategoryIdStored() throws Exception {
+		IGetByUserIdAndCategoryId<Movimiento> movimientoDao = new MovimientoDao();
+		List<Movimiento> listaalumnos = movimientoDao.getByUserIdAndCategoryIdStored(5, 5);
+		assertTrue(!listaalumnos.isEmpty());
+	}
+
+	@Test
+	public void test9CGetByIdStored() throws Exception {
+		IGetById<Movimiento> movimientoDao = new MovimientoDao();
+		Movimiento movimiento = movimientoDao.getByIdStored(idMovimiento);
+		assertTrue(movimiento != null);
+	}
+
+	@Test
+	public void test9DRemoveStored() throws Exception {
+		IRemove<Movimiento> movimientoDao = new MovimientoDao();
+		IGetById<Movimiento> movimientoDao2 = new MovimientoDao();
+		movimientoDao.remove(idMovimiento);
+		Movimiento movimiento = movimientoDao2.getByIdStored(5);
+		assertTrue(movimiento == null);
 	}
 }

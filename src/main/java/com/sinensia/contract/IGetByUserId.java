@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface IGetByUserId<T> {
 	public List<T> getByUserId(int userid) throws SQLException;
+
+	public List<T> getByUserIdStored(int userid) throws SQLException;
 }

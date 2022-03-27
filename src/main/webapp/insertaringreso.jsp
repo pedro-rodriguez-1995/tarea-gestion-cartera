@@ -44,7 +44,7 @@
 					name="categoriaid" id="categoriaid">
 					<% 
 					CategoriaLogic catlogic = new CategoriaLogic();
-					for(Categoria categoria : catlogic.listarCategoriasTipo("ingreso")){ %>
+					for(Categoria categoria : catlogic.listarCategoriasTipo("ingreso",(String)session.getAttribute("method"))){ %>
 						<option value="<%=categoria.getIdcategoria() %>"><%=categoria.getNombre() %></option>
 					<%} %>
 				</select>
