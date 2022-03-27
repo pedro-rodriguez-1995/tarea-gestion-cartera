@@ -37,7 +37,7 @@
 
 			<div class="mb-3">
 				<label for="nombre">Cantidad:</label> <input type="number" required
-					class="form-control" id="importe" placeholder="Introduzca cantidad" min="1" max="999999999999999999"
+					class="form-control" id="importe" placeholder="Introduzca cantidad" min="1" max="99999999999"
 					name="importe">
 			</div>
 			<div class="mb-3 mt-3">
