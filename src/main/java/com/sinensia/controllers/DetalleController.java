@@ -38,6 +38,7 @@ public class DetalleController extends HttpServlet {
 		int intmes = (Integer) session.getAttribute("intmes");
 		int idusuario = (Integer) session.getAttribute("idusuario");
 		int idcategoria = Integer.valueOf(request.getParameter("idcategoria"));
+		String method = (String) session.getAttribute("method");
 		String destination = "detalle.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
 		request.setAttribute("intmes", intmes);
@@ -52,13 +53,13 @@ public class DetalleController extends HttpServlet {
 			if (request.getParameter("idmovimiento") != null) {
 				int idmovimiento = Integer.parseInt(request.getParameter("idmovimiento"));
 
-				movlogic.borrarMovimiento(idmovimiento);
+				movlogic.borrarMovimiento(idmovimiento, method);
 
 			}
 
 			List<Movimiento> listamov = movlogic.listarMovimientosCategoriaPag(idusuario, idcategoria, intmes,
-					currentPage, recordsPerPage);
-			int rows = movlogic.listarMovimientosCategoria(idusuario, idcategoria, intmes).size();
+					currentPage, recordsPerPage, method);
+			int rows = movlogic.listarMovimientosCategoria(idusuario, idcategoria, intmes, method).size();
 
 			int nOfPages = movlogic.numOfPages(rows, recordsPerPage);
 

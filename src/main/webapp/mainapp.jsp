@@ -61,7 +61,7 @@
 				int idusuario = (Integer) request.getAttribute("idusuario");
 				MovimientoLogic movlogic = new MovimientoLogic();
 				CategoriaLogic catlogic = new CategoriaLogic();
-				Map<Categoria, BigDecimal> listacategoriasgasto = catlogic.listarCategoriasUsuarioTipo(idusuario, intmes,"gasto");
+				Map<Categoria, BigDecimal> listacategoriasgasto = catlogic.listarCategoriasUsuarioTipo(idusuario, intmes,"gasto",(String)session.getAttribute("method"));
 
 				for (Map.Entry<Categoria, BigDecimal> entry : listacategoriasgasto.entrySet()) {
 				%>
@@ -98,7 +98,7 @@
 			<tbody>
 				<%
 				
-				Map<Categoria, BigDecimal> listacategoriasingreso = catlogic.listarCategoriasUsuarioTipo(idusuario, intmes,"ingreso");
+				Map<Categoria, BigDecimal> listacategoriasingreso = catlogic.listarCategoriasUsuarioTipo(idusuario, intmes,"ingreso",(String)session.getAttribute("method"));
 
 				for (Map.Entry<Categoria, BigDecimal> entry : listacategoriasingreso.entrySet()) {
 				%>
@@ -127,7 +127,7 @@
 			<div class="col-sm">
 				<h3>
 					Total:
-					<%=movlogic.totalMovimientos(idusuario, intmes) %>
+					<%=movlogic.totalMovimientos(idusuario, intmes,(String)session.getAttribute("method")) %>
 					EUR
 				</h3>
 			</div>

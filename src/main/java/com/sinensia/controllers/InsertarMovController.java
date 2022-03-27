@@ -42,13 +42,14 @@ public class InsertarMovController extends HttpServlet {
 		HttpSession session = request.getSession();
 		int idusuario = (Integer) session.getAttribute("idusuario");
 		int idcategoria = Integer.valueOf(request.getParameter("categoriaid"));
+		String method = (String) session.getAttribute("method");
 		String tipo = request.getParameter("tipo");
 		BigDecimal importe = new BigDecimal(request.getParameter("importe"));
 		LocalDate fecha = LocalDate.now();
 		String destination = request.getParameter("return");
 		try {
 			MovimientoLogic movlogic = new MovimientoLogic();
-			if (movlogic.insertarMovimiento(idcategoria, idusuario, importe, tipo, fecha) != 0) {
+			if (movlogic.insertarMovimiento(idcategoria, idusuario, importe, tipo, fecha, method) != 0) {
 
 				request.setAttribute("errorstatus", "false");
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);

@@ -39,6 +39,13 @@
 					required class="form-control" id="password"
 					placeholder="Introduzca la contraseña" name="password">
 			</div>
+			<label for="method">Método de gestión:</label> <select
+					name="method" id="method">
+					
+						<option value="standard">Estándar</option>
+						<option value="stored">Stored Procedure</option>
+				
+				</select>
 
 			<button type="submit" class="btn btn-primary">Entrar</button>
 		</form>

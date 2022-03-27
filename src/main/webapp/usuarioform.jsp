@@ -41,6 +41,19 @@
 					required class="form-control" id="password"
 					placeholder="Introduzca la contraseña" name="password">
 			</div>
+			<div class="mb-3 mt-3">
+				<label for="password">E-mail:</label> <input type="email"
+					required class="form-control" id="email"
+					placeholder="Introduzca la contraseña" name="password">
+			</div>
+	
+			<label for="method">Método de gestión:</label> <select
+					name="method" id="method">
+					
+						<option value="standard">Estándar</option>
+						<option value="stored">Stored Procedure</option>
+				
+				</select>
 
 			<button type="submit" class="btn btn-primary">Crear Usuario</button>
 		</form>

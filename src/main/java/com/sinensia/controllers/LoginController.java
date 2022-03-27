@@ -33,16 +33,19 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		String nombre = request.getParameter("nombre");
 		String password = request.getParameter("password");
+		String method = request.getParameter("method");
 
 		try {
 			UsuarioLogic userlogic = new UsuarioLogic();
-			Integer idusuario = userlogic.comprobarUsuario(nombre, password);
+			Integer idusuario = userlogic.comprobarUsuario(nombre, password, method);
 			if (idusuario != 0) {
-				HttpSession session = request.getSession();
+
 				session.setAttribute("idusuario", idusuario);
 				session.setAttribute("intmes", LocalDate.now().getMonthValue());
+				session.setAttribute("method", method);
 				response.sendRedirect(request.getContextPath() + "/MainappController");
 			} else {
 				String destination = "login.jsp";

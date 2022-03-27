@@ -1,6 +1,6 @@
 package com.sinensia.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import com.sinensia.contract.IGetAll;
 import com.sinensia.model.Categoria;
-
 
 public class CategoriaDaoIntegrationTest {
 
@@ -34,9 +33,17 @@ public class CategoriaDaoIntegrationTest {
 
 	@Test
 	public void testGetAll() throws Exception {
-		
+
 		IGetAll<Categoria> categoriaDao = new CategoriaDao();
 		List<Categoria> categorias = categoriaDao.getAll();
+		assertTrue(!categorias.isEmpty());
+	}
+
+	@Test
+	public void testGetAllStored() throws Exception {
+
+		IGetAll<Categoria> categoriaDao = new CategoriaDao();
+		List<Categoria> categorias = categoriaDao.getAllStored();
 		assertTrue(!categorias.isEmpty());
 	}
 

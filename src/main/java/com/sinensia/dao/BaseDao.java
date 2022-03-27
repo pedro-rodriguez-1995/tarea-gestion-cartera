@@ -24,8 +24,7 @@ public class BaseDao {
 
 		try {
 
-			connection = DriverManager.getConnection("jdbc:mysql://eu-cdbr-west-01.cleardb.com/heroku_b95193c109ba095",
-					"b104b784a7837c", "183a29fe");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestion-cartera", "root", "root");
 
 		} catch (SQLException e) {
 

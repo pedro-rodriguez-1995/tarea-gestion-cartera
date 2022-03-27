@@ -123,7 +123,7 @@
 			<div class="col-sm">
 				<h3>
 					Total:
-					<%=movlogic.totalMovimientosCategoria(idusuario,idcategoria, intmes) %>
+					<%=movlogic.totalMovimientosCategoria(idusuario,idcategoria, intmes,(String)session.getAttribute("method"))%>
 					EUR
 				</h3>
 			</div>
