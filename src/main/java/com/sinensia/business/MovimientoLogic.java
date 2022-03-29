@@ -25,14 +25,15 @@ public class MovimientoLogic {
 		} else {
 			listamovmes = movimientoDao.getByUserIdAndCategoryId(idusuario, idcategoria);
 		}
-
+		List<Movimiento> toRemove = new ArrayList<Movimiento>();
 		for (Movimiento movimiento : listamovmes) {
 
 			if (movimiento.getFecha().getMonthValue() != mes) {
-				listamovmes.remove(movimiento);
+				toRemove.add(movimiento);
 			}
 
 		}
+		listamovmes.removeAll(toRemove);
 		return listamovmes;
 
 	}
@@ -93,7 +94,7 @@ public class MovimientoLogic {
 		movimiento.setIdusuario(idusuario);
 		movimiento.setImporte(importe);
 		movimiento.setTipo(tipo);
-		movimiento.setFecha(LocalDate.now());
+		movimiento.setFecha(fecha);
 
 		if (method.equals("stored")) {
 			idmovimiento = movimientoDao.addStored(movimiento);
@@ -131,13 +132,15 @@ public class MovimientoLogic {
 			listamovmes = movimientoDao.getByUserIdAndCategoryIdPag(idusuario, idcategoria, start, recordsPerPage);
 			;
 		}
+		List<Movimiento> toRemove = new ArrayList<Movimiento>();
 		for (Movimiento movimiento : listamovmes) {
 
 			if (movimiento.getFecha().getMonthValue() != mes) {
-				listamovmes.remove(movimiento);
+				toRemove.add(movimiento);
 			}
 
 		}
+		listamovmes.removeAll(toRemove);
 		return listamovmes;
 
 	}

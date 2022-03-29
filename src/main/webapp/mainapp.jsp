@@ -27,29 +27,31 @@
 		String mes = LocalDate.of(2022, intmes, 1).getMonth().getDisplayName(TextStyle.FULL, spanishLocale);
 		%>
 		
-
+		<div class="top-main">
 		<h2>
 			Listado de movimientos por categoría </h2>
 			<nav>
 			<ul class="pagination justify-content-center">
 			<%if(intmes>1){ %>
-				<li class="page-item"><a class="page-link" href="MainappController?page=<%=intmes-1 %>"
+				<li class="page-item buttonlink"><a class="page-link" href="MainappController?page=<%=intmes-1 %>"
 					tabindex="-1">&laquo;</a></li>
 			<%} %>
-				<li class="page-item"><%=mes%></li>
+				<li class="page-item textlink"><%=mes%></li>
 				<%if(intmes<12){ %>
-				<li class="page-item"><a class="page-link" href="MainappController?page=<%=intmes+1 %>">&raquo;</a></li>
+				<li class="page-item buttonlink"><a class="page-link" href="MainappController?page=<%=intmes+1 %>">&raquo;</a></li>
 				<%} %>
 			</ul>
 		</nav>
-		<h1>Gastos</h1>
-		<table class="table">
+		</div>
+		<div class="inner-table">
+		<h3>Gastos</h3>
+		<table class="table table-light table-striped table-hover">
 			<thead>
 				<tr>
-					<th scope="col"></th>
-					<th scope="col">Nombre</th>
-					<th scope="col">Total</th>
-					<th scope="col"></th>
+					<th scope="col" class="w-25"></th>
+					<th scope="col" class="w-25">Nombre</th>
+					<th scope="col" class="w-25">Total</th>
+					<th scope="col" class="w-25"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -70,8 +72,9 @@
 							id="formdetalle">
 							<input type="hidden" name="recordsPerPage" value="5">
 							<input type="hidden" name="currentPage" value="1">
+							<input type="hidden" name="intmes" value="<%=intmes %>">
 							<button type="submit" form="formdetalle" id="idcategoria"
-								name="idcategoria" value="<%=entry.getKey().getIdcategoria()%>">Detalle</button>
+								name="idcategoria" class="btn btn-primary btn-sm active" value="<%=entry.getKey().getIdcategoria()%>">Detalle</button>
 						</form></td>
 
 				</tr>
@@ -81,14 +84,14 @@
 				%>
 			</tbody>
 		</table>
-		<h1>Ingresos</h1>
-		<table class="table">
+		<h3>Ingresos</h3>
+		<table class="table table-light table-striped table-hover">
 			<thead>
 				<tr>
-					<th scope="col"></th>
-					<th scope="col">Nombre</th>
-					<th scope="col">Total</th>
-					<th scope="col"></th>
+					<th scope="col" class="w-25"></th>
+					<th scope="col" class="w-25">Nombre</th>
+					<th scope="col" class="w-25">Total</th>
+					<th scope="col" class="w-25"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -108,7 +111,7 @@
 							<input type="hidden" name="recordsPerPage" value="5">
 							<input type="hidden" name="currentPage" value="1">
 							<button type="submit" form="formdetalle" id="idcategoria"
-								name="idcategoria" value="<%=entry.getKey().getIdcategoria()%>">Detalle</button>
+								name="idcategoria" class="btn btn-primary btn-sm active" value="<%=entry.getKey().getIdcategoria()%>">Detalle</button>
 						</form></td>
 
 				</tr>
@@ -132,15 +135,16 @@
 
 
 		<div class="row">
-			<div class="col-sm">
+			<div class="col col-sm-3">
 				<a href="insertargasto.jsp" class="btn btn-primary btn-lg active"
 					role="button">Nuevo Gasto</a>
 			</div>
-			<div class="col-sm"></div>
-			<div class="col-sm">
-				<a href="insertaringreso.jsp" class="btn btn-primary btn-lg active"
+			 <div class="col-sm-6"></div>
+			<div class="col col-sm-3 ">
+				<a href="insertaringreso.jsp" class="btn btn-primary btn-lg active float-end"
 					role="button">Nuevo Ingreso</a>
 			</div>
+		</div>
 		</div>
 	</div>
 

@@ -45,7 +45,7 @@ public class InsertarMovController extends HttpServlet {
 		String method = (String) session.getAttribute("method");
 		String tipo = request.getParameter("tipo");
 		BigDecimal importe = new BigDecimal(request.getParameter("importe"));
-		LocalDate fecha = LocalDate.now();
+		LocalDate fecha = LocalDate.parse(request.getParameter("fecha"));
 		String destination = request.getParameter("return");
 		try {
 			MovimientoLogic movlogic = new MovimientoLogic();

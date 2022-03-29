@@ -10,6 +10,7 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+      <link rel="stylesheet" href="mystyle.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <title>Log In</title>
@@ -18,10 +19,16 @@
 
 <body>
 	<div class="container mt-3">
+	
+		<div class="header-login">
 		<img class="mb-4"
-			src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
+			src="img/handshake.png"
 			alt="" width="72" height="72">
-		<h2>Entrar a la aplicación</h2>
+			<h1>Nuevo Usuario</h1>
+		</div>
+		<div class="inner-login">
+		<h3>Introduzca sus datos</h3>
+		
 		<% 
 			String errorstatus =(String)request.getAttribute("errorstatus");
 		if (errorstatus !=null && errorstatus.equals("true")){
@@ -56,10 +63,12 @@
 						<option value="stored">Stored Procedure</option>
 				
 				</select>
-
-			<button type="submit" class="btn btn-primary">Crear Usuario</button>
+<br>
+<br>
+			<button type="submit" class="btn btn-lg btn-primary">Crear Usuario</button>
+			<a href="login.jsp" class="btn btn-lg btn-primary" role="button">Volver a Login</a>
 		</form>
-		<a href="login.jsp">Volver a Login</a>
+		</div>
 	</div>
 </body>
 </html>
