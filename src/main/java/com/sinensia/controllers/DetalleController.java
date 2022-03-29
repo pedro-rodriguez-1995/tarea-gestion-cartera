@@ -35,7 +35,7 @@ public class DetalleController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		int intmes = (Integer) session.getAttribute("intmes");
+		int intmes = Integer.valueOf(request.getParameter("intmes"));
 		int idusuario = (Integer) session.getAttribute("idusuario");
 		int idcategoria = Integer.valueOf(request.getParameter("idcategoria"));
 		String method = (String) session.getAttribute("method");

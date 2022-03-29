@@ -10,6 +10,7 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+      <link rel="stylesheet" href="mystyle.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <%
@@ -23,12 +24,11 @@
 <meta charset="ISO-8859-1">
 </head>
 
-<nav class="navbar navbar-light bg-light">
-
-  <form class="form-inline" action="LogoutController" method="post" id="logout">
+<nav class="navbar navbar-light bg-light ">
+  <a class="navbar-brand">Gestion de Cartera</a>
+  <form class="form-inline"  action="LogoutController" method="post" id="logout">
     
-    <button class="btn  my-2 my-sm-0" type="submit">Salir</button>
+    <button class="btn btn-outline-warning my-3 my-sm-0" type="submit">Cerrar Sesión</button>
   </form>
-
 </nav>
 </html>

@@ -12,17 +12,20 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+<link rel="stylesheet" href="mystyle.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <body>
-	<div class="container mt-3">
+	<div class="container mt-3 ">
+		<div class="header-login">
 		<img class="mb-4"
-			src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
+			src="img/income.png"
 			alt="" width="72" height="72">
-		<h2>Entrar a la aplicación</h2>
+			<h1>Gestión de Cartera</h1>
+		</div>
+		<div class="inner-login">
+		<h3>Entrar a la aplicación</h3>
 		<% 
 			String errorstatus =(String)request.getAttribute("errorstatus");
 		if (errorstatus !=null && errorstatus.equals("true")){
@@ -48,10 +51,14 @@
 						<option value="stored">Stored Procedure</option>
 				
 				</select>
-
-			<button type="submit" class="btn btn-primary">Entrar</button>
+			<br>
+			<br>
+			<button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+			<a href="usuarioform.jsp" class="btn btn-primary btn-lg " role="button" aria-pressed="true">Nuevo Usuario</a>
 		</form>
-		<a href="usuarioform.jsp">Nuevo Usuario</a>
+		
+		
+		</div>
 	</div>
 </body>
 </html>
