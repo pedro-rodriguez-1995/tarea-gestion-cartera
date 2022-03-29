@@ -42,6 +42,8 @@
 
 
 			<div class="form-group mb-4">
+			<input
+				type="hidden" name="intmes" value="<%=intmes%>">
 				<input type="hidden" id="idcategoria" name="idcategoria"
 					value="<%=idcategoria%>"> <input type="hidden"
 					id="currentPage" name="currentPage" value="1"> <label
