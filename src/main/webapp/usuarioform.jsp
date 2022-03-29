@@ -53,7 +53,7 @@
 			<div class="mb-3 mt-3">
 				<label for="password">E-mail:</label> <input type="email"
 					required class="form-control" id="email"
-					placeholder="Introduzca la contraseña" name="password">
+					placeholder="Introduzca su e-mail" name="email">
 			</div>
 	
 			<label for="method">Método de gestión:</label> <select
